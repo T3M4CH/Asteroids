@@ -1,14 +1,27 @@
+using System;
 using System.Linq;
 using Game.Constants;
 using Game.General;
+using Game.Settings.Enums;
+using Game.Settings.Interfaces;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Player
 {
     public class MonoShipWeapon : MonoWeapon
     {
         private readonly float[] _cooldown = new float[3];
-        
+
+        private IInputSettings _inputSettings;
+        private bool _fire;
+
+        [Inject]
+        private void Construct(IInputSettings inputSettings)
+        {
+            _inputSettings = inputSettings;
+        }
+
         public override void Fire()
         {
             ResetTimer();
@@ -45,9 +58,25 @@ namespace Game.Player
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && _cooldown.Any(x => x <= 0))
+            if (!_cooldown.Any(x => x <= 0)) return;
+            switch (_inputSettings.InputScheme)
             {
-                Fire();
+                case InputScheme.Keyboard:
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        Fire();
+                    }
+
+                    break;
+                case InputScheme.KeyboardMouse:
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        Fire();
+                    }
+
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
