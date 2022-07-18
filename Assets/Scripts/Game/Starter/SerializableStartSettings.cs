@@ -1,9 +1,7 @@
+using System.Collections.Generic;
 using Game.Starter.Interfaces;
-using Game.Enemies.Asteroids;
 using UnityEngine;
 using System;
-using System.Collections.Generic;
-using Game.Player;
 
 namespace Game.Starter
 {

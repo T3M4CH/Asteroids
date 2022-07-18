@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using Game.Utils.Pair;
+using Game.Utils;
 using UnityEngine;
 using System;
-using System.Linq;
 using Zenject;
 
 namespace Game.Settings
@@ -12,17 +11,22 @@ namespace Game.Settings
     {
         [SerializeField] private List<SerializablePair<string, AudioClip>> audioStorage;
 
-        [field: SerializeField] public AudioSource AudioSourcePrefab { get; private set; }
-
-        public Dictionary<string, AudioClip> AudioStorage = new Dictionary<string, AudioClip>();
-
         public void Initialize()
         {
-            if (AudioStorage.Any()) return;
+            if (AudioStorage.Count > 0) return;
             foreach (var audio in audioStorage)
             {
                 AudioStorage.Add(audio.Key, audio.Value);
             }
+        }
+
+        public Dictionary<string, AudioClip> AudioStorage { get; private set; } = new();
+
+        [field: SerializeField]
+        public AudioSource AudioSourcePrefab
+        {
+            get;
+            private set;
         }
     }
 }

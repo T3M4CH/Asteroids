@@ -1,14 +1,13 @@
 using Game.Options.Interfaces;
 using UnityEngine;
-using Zenject;
 
 namespace Game.Settings
 {
     public class SceneSettings
     {
-        public SceneSettings(ISceneSettings sceneSettings)
+        public SceneSettings(int fpsRate)
         {
-            Application.targetFrameRate = sceneSettings.FPSRate;
+            Application.targetFrameRate = fpsRate;
         }
     }
 }

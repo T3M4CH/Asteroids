@@ -2510,13 +2510,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8529074b4e643640bfbca71727fc53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fpsRate: 120
+  audioSettings:
+    audioStorage:
+    - <Key>k__BackingField: Fire
+      <Value>k__BackingField: {fileID: 8300000, guid: a7a61a376d7bc254e9fb0f492b4bb63d, type: 3}
+    - <Key>k__BackingField: Thrust
+      <Value>k__BackingField: {fileID: 8300000, guid: f41dfbe09b89fbc4db8c78525b404d71, type: 3}
+    - <Key>k__BackingField: Explosion
+      <Value>k__BackingField: {fileID: 8300000, guid: 01befed9cfcea6447ac748f30113d215, type: 3}
+    <AudioSourcePrefab>k__BackingField: {fileID: 781359735368881460, guid: 33c23a0706711c546ab889f0cd1b0d4a, type: 3}
   boundariesSettings:
     <Playground>k__BackingField: {fileID: 1525333836}
-  sceneSettings:
-    <FPSRate>k__BackingField: 120
-  audioSettings:
-    audioStorage: []
-    <AudioSourcePrefab>k__BackingField: {fileID: 781359735368881460, guid: 33c23a0706711c546ab889f0cd1b0d4a, type: 3}
 --- !u!114 &2044771228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2597,14 +2602,6 @@ MonoBehaviour:
   scoreText: {fileID: 1857256636}
   monoUfoWeapon: {fileID: 1590703609740831631, guid: 6c926cc75cfe60a43bd7d58358c59871, type: 3}
   playerMovement: {fileID: 327450409}
-  audioSettings:
-    audioStorage:
-    - key: Fire
-      value: {fileID: 8300000, guid: a7a61a376d7bc254e9fb0f492b4bb63d, type: 3}
-    - key: Thrust
-      value: {fileID: 8300000, guid: f41dfbe09b89fbc4db8c78525b404d71, type: 3}
-    - key: Explosion
-      value: {fileID: 8300000, guid: 01befed9cfcea6447ac748f30113d215, type: 3}
-    <AudioSourcePrefab>k__BackingField: {fileID: 781359735368881460, guid: 33c23a0706711c546ab889f0cd1b0d4a, type: 3}
+  starterInput: {fileID: 127173591}
   projectilePrefab: {fileID: 2265756189926731651, guid: 713e3ddca2d119247aaafd0e0e0cf6ac, type: 3}
   asteroidPrefab: {fileID: 4229307737727495493, guid: 634c15501322c0443990017811ce2743, type: 3}

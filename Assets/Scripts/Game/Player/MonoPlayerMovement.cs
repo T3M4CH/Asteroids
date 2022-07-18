@@ -4,7 +4,7 @@ using UnityEngine;
 using Game.Utils;
 using Zenject;
 using System;
-using Game.BorderCrosser.Interfaces;
+using Game.BoundariesCrosser.Interfaces;
 using Game.Constants;
 using Game.Settings;
 

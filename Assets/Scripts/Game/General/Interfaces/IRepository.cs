@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Game.General
+namespace Game.General.Interfaces
 {
     public interface IRepository<T>
     {

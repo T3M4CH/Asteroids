@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Game.BorderCrosser.Interfaces
+namespace Game.BoundariesCrosser.Interfaces
 {
     public interface IBorderCrosser
     {

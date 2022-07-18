@@ -1,5 +1,5 @@
 using System;
-using Game.BorderCrosser.Interfaces;
+using Game.BoundariesCrosser.Interfaces;
 using Game.Enemies.Interfaces;
 using UnityEngine;
 using Game.UI.Interfaces;

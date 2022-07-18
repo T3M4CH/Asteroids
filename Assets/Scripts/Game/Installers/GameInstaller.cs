@@ -4,9 +4,9 @@ using Game.Settings;
 using Game.Starter;
 using UnityEngine;
 using Game.Player;
+using Zenject;
 using Game.UI;
 using TMPro;
-using Zenject;
 
 namespace Game.Installers
 {
@@ -18,7 +18,7 @@ namespace Game.Installers
         [SerializeField] private TextMeshProUGUI scoreText;
         [SerializeField] private GameObject monoUfoWeapon;
         [SerializeField] private MonoPlayerMovement playerMovement;
-        [SerializeField] private SerializableAudioSettings audioSettings;
+        [SerializeField] private MonoStarterInput starterInput;
 
         [Header("MemoryPoolSettings")] [SerializeField]
         private MonoProjectile projectilePrefab;
@@ -28,7 +28,8 @@ namespace Game.Installers
         public override void InstallBindings()
         {
             Container
-                .BindInterfacesTo<GameStarter>()
+                .BindInterfacesTo<MonoStarterInput>()
+                .FromComponentInHierarchy(starterInput)
                 .AsSingle();
 
             Container
@@ -80,16 +81,6 @@ namespace Game.Installers
             Container
                 .BindInterfacesTo<InputSettings>()
                 .AsSingle();
-            
-            Container
-                .BindInstance(audioSettings)
-                .AsSingle();
-
-            Container
-                .BindMemoryPool<AudioSource, MemoryPool<AudioSource>>()
-                .WithInitialSize(4)
-                .FromComponentInNewPrefab(audioSettings.AudioSourcePrefab)
-                .UnderTransformGroup("Audio Memory Pool");
 
             Container
                 .BindMemoryPool<MonoProjectile, MemoryPool<MonoProjectile>>()

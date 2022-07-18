@@ -1,14 +1,15 @@
-﻿using System;
-using Game.Player.Interfaces;
+﻿using Game.Player.Interfaces;
 using UnityEngine;
+using System;
 
 namespace Game.Player
 {
     public class MonoProjectile : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer sprite;
+        
         private Transform _owner;
-        private bool isHit;
+        private bool _isHit;
         private float _speed;
         private Vector3 _position;
         private Vector3[] _boundaries;
@@ -27,7 +28,7 @@ namespace Game.Player
         )
         {
             sprite.color = color;
-            isHit = false;
+            _isHit = false;
             _speed = speed;
             _owner = owner;
             transform.position = position;
@@ -57,8 +58,8 @@ namespace Game.Player
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (col.transform == _owner) return;
-            if (!col.TryGetComponent(out IDamagable damagable) || isHit) return;
-            isHit = true;
+            if (!col.TryGetComponent(out IDamagable damagable) || _isHit) return;
+            _isHit = true;
             damagable.GetDamage();
             _onCollision.Invoke(this);
         }

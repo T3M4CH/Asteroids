@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using Game.General.Interfaces;
 using UnityEngine.UI;
-using Game.General;
 using UnityEngine;
 using Game.Player;
 using Zenject;
@@ -11,8 +11,6 @@ namespace Game.UI
     [Serializable]
     public class HealthPanel : IInitializable, IDisposable, IRepository<Image>
     {
-        public event Action OnRestart = () => {};
-
         [SerializeField] private MonoPhysicsCollision physicsCollision;
         [SerializeField] private MonoMenu monoMenu;
         

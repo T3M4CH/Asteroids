@@ -11,10 +11,10 @@ namespace Game.Player
 {
     public class MonoShipWeapon : MonoWeapon
     {
-        private readonly float[] _cooldown = new float[3];
+        private readonly float[] _bulletCount = new float[3];
 
-        private IInputSettings _inputSettings;
         private bool _fire;
+        private IInputSettings _inputSettings;
 
         [Inject]
         private void Construct(IInputSettings inputSettings)
@@ -40,25 +40,25 @@ namespace Game.Player
 
         private void ResetTimer()
         {
-            for (var i = 0; i < _cooldown.Length; i++)
+            for (var i = 0; i < _bulletCount.Length; i++)
             {
-                if (!(_cooldown[i] <= 0)) continue;
-                _cooldown[i] = 1;
+                if (!(_bulletCount[i] <= 0)) continue;
+                _bulletCount[i] = 1;
                 break;
             }
         }
 
         private void Update()
         {
-            for (int i = 0; i < _cooldown.Length; i++)
+            for (int i = 0; i < _bulletCount.Length; i++)
             {
-                if (_cooldown[i] > 0)
+                if (_bulletCount[i] > 0)
                 {
-                    _cooldown[i] -= Time.deltaTime;
+                    _bulletCount[i] -= Time.deltaTime;
                 }
             }
 
-            if (!_cooldown.Any(x => x <= 0)) return;
+            if (!_bulletCount.Any(x => x <= 0)) return;
             switch (_inputSettings.InputScheme)
             {
                 case InputScheme.Keyboard:

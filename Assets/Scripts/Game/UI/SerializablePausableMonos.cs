@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Game.General.Interfaces;
 using UnityEngine;
 using Zenject;
 using System;
-using Game.General;
 
 namespace Game.UI
 {

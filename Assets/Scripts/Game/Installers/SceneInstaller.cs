@@ -1,3 +1,4 @@
+using Game.BoundariesCrosser;
 using Game.Settings;
 using UnityEngine;
 using Zenject;
@@ -6,26 +7,32 @@ namespace Game.Installers
 {
     public class SceneInstaller : MonoInstaller
     {
-        [SerializeField] private SerializableBoundariesSettings boundariesSettings;
-        [SerializeField] private SerializableSceneSettings sceneSettings;
+        [SerializeField] private int fpsRate;
         [SerializeField] private SerializableAudioSettings audioSettings;
+        [SerializeField] private SerializableBoundariesSettings boundariesSettings;
         public override void InstallBindings()
         {
             Container
-                .BindInterfacesTo<BoundariesCrosser.BorderCrosser>()
+                .BindInterfacesTo<BorderCrosser>()
                 .AsSingle()
                 .WithArguments(boundariesSettings)
                 .NonLazy();
-            
-            Container
-                .BindInterfacesTo<SerializableSceneSettings>()
-                .FromInstance(sceneSettings)
-                .AsSingle();
 
             Container
                 .Bind<SceneSettings>()
                 .AsSingle()
+                .WithArguments(fpsRate)
                 .NonLazy();
+            
+            Container
+                .BindInstance(audioSettings)
+                .AsSingle();
+
+            Container
+                .BindMemoryPool<AudioSource, MemoryPool<AudioSource>>()
+                .WithInitialSize(4)
+                .FromComponentInNewPrefab(audioSettings.AudioSourcePrefab)
+                .UnderTransformGroup("Audio Memory Pool");
         }
     }
 }

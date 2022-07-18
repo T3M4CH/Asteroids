@@ -1,9 +1,9 @@
-﻿using Game.BorderCrosser.Interfaces;
-using Game.Enemies.Interfaces;
+﻿using Game.Enemies.Interfaces;
 using Game.Player.Interfaces;
 using UnityEngine;
 using Zenject;
 using System;
+using Game.BoundariesCrosser.Interfaces;
 using Game.Settings;
 using Random = UnityEngine.Random;
 

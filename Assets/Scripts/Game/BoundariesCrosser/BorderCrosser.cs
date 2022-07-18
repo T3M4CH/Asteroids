@@ -1,4 +1,4 @@
-using Game.BorderCrosser.Interfaces;
+using Game.BoundariesCrosser.Interfaces;
 using Game.Settings;
 using UnityEngine;
 

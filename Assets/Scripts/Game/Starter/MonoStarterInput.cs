@@ -1,27 +1,27 @@
-using System;
 using Game.Starter.Interfaces;
 using UnityEngine;
 using Zenject;
+using System;
 
 namespace Game.Starter
 {
-    public class MonoStarterInput : MonoBehaviour
+    public class MonoStarterInput : MonoBehaviour, IStarter
     {
-        [Inject]
-        private void Construct(IStarter starter, IStartSettings startSettings)
-        {
-            _starter = starter;
-            _startSettings = startSettings;
-        }
+        public event Action OnGameStart = () => { };
 
         private IStartSettings _startSettings;
-        private IStarter _starter;
 
+        [Inject]
+        private void Construct(IStartSettings startSettings)
+        {
+            _startSettings = startSettings;
+        }
+        
         private void Update()
         {
             if (!Input.anyKey) return;
             _startSettings.GameObjects.ForEach(x => x.SetActive(true));
-            _starter.OnGameStart.Invoke();
+            OnGameStart.Invoke();
             enabled = false;
         }
 

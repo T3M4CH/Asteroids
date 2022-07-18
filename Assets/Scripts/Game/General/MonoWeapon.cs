@@ -1,7 +1,7 @@
-using Game.BorderCrosser.Interfaces;
-using Game.Player;
+using Game.BoundariesCrosser.Interfaces;
 using Game.Settings;
 using UnityEngine;
+using Game.Player;
 using Zenject;
 
 namespace Game.General
