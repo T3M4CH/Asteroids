@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Game.General.Interfaces;
 using UnityEngine.UI;
 using UnityEngine;
 using Game.Player;
@@ -9,7 +8,7 @@ using System;
 namespace Game.UI
 {
     [Serializable]
-    public class HealthPanel : IInitializable, IDisposable, IRepository<Image>
+    public class HealthPanel : IInitializable, IDisposable
     {
         [SerializeField] private MonoPhysicsCollision physicsCollision;
         [SerializeField] private MonoMenu monoMenu;

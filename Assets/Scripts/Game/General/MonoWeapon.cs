@@ -11,7 +11,7 @@ namespace Game.General
         protected MemoryPool<MonoProjectile> ProjectilePool;
         protected IMemoryPool<AudioSource> AudioPool;
         protected SerializableAudioSettings AudioSettings;
-        protected Vector3[] Corners;
+        protected IBorderCrosser BorderCrosser;
 
         [Inject]
         private void Construct
@@ -24,7 +24,7 @@ namespace Game.General
         {
             ProjectilePool = projectilePool;
             AudioPool = audioPool;
-            Corners = borderCrosser.Boundaries;
+            BorderCrosser = borderCrosser;
             AudioSettings = audioSettings;
         }
 

@@ -1,6 +1,6 @@
 namespace Game.Settings.Enums
 {
-    public enum InputScheme
+    public enum EInputScheme
     {
        Keyboard,
        KeyboardMouse

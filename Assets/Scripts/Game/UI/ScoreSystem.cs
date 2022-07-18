@@ -1,15 +1,30 @@
-using System;
+using Game.Enemies.Enums;
 using Game.UI.Interfaces;
+using Game.Utils;
+using System;
+using System.Collections.Generic;
+using Game.Settings;
 
 namespace Game.UI
 {
     public class ScoreSystem : IScoreSystem
     {
-        public event Action OnChanged = () => {};
-        
-        public void AddScore(int value)
+        public ScoreSystem(SerializableGameSettings gameSettings)
         {
-            Score += value;
+            var scoreList = gameSettings.ScoreList;
+            foreach (var score in scoreList)
+            {
+                _scoreDictionary.Add(score.Key, score.Value);
+            }
+        }
+        
+        public event Action OnChanged = () => {};
+
+        private readonly Dictionary<ETypeEnemy, int> _scoreDictionary = new ();
+        
+        public void AddScore(ETypeEnemy enemyType)
+        {
+            Score += _scoreDictionary[enemyType];
             OnChanged.Invoke();
         }
 

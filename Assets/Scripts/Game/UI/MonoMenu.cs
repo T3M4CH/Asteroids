@@ -36,12 +36,12 @@ namespace Game.UI
 
         private void ChangeInputScheme()
         {
-            var inputScheme = _inputSettings.InputScheme;
-            inputScheme = inputScheme == InputScheme.Keyboard
-                ? InputScheme.KeyboardMouse
-                : InputScheme.Keyboard;
+            var inputScheme = _inputSettings.EInputScheme;
+            inputScheme = inputScheme == EInputScheme.Keyboard
+                ? EInputScheme.KeyboardMouse
+                : EInputScheme.Keyboard;
 
-            _inputSettings.InputScheme = inputScheme;
+            _inputSettings.EInputScheme = inputScheme;
 
             schemeText.text = inputScheme.ToString();
         }
@@ -68,7 +68,7 @@ namespace Game.UI
         private void OnEnable()
         {
             buttons[0].gameObject.SetActive(true);
-            schemeText.text = _inputSettings.InputScheme.ToString();
+            schemeText.text = _inputSettings.EInputScheme.ToString();
         }
 
         private void Start()

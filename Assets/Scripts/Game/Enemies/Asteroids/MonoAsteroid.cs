@@ -1,8 +1,10 @@
 using System;
 using Game.BoundariesCrosser.Interfaces;
+using Game.Enemies.Enums;
 using Game.Enemies.Interfaces;
 using UnityEngine;
 using Game.UI.Interfaces;
+using Zenject;
 using Random = UnityEngine.Random;
 
 namespace Game.Enemies.Asteroids
@@ -12,25 +14,29 @@ namespace Game.Enemies.Asteroids
         private float _speed = 2;
         private int _health = 3;
         private Action<MonoAsteroid> _onDestroy;
-        private Action<MonoAsteroid,int> _onDamage;
+        private Action<Transform,int> _onDamage;
         private Transform _childSprite;
         private IScoreSystem _scoreSystem;
         private IBorderCrosser _borderCrosser;
+        private Transform _transform;
 
+        [Inject]
+        private void Construct(IScoreSystem scoreSystem, IBorderCrosser borderCrosser)
+        {
+            _scoreSystem = scoreSystem;
+            _borderCrosser = borderCrosser;
+        }
+        
         public void Initialize
         (
             int health,
             Vector3 position,
-            IBorderCrosser borderCrosser,
             Action<MonoAsteroid> despawnAction,
-            Action<MonoAsteroid,int> spawnAction,
-            IScoreSystem scoreSystem
+            Action<Transform,int> spawnAction
         )
         {
-            transform.position = position;
-
-            _scoreSystem ??= scoreSystem;
-            _borderCrosser ??= borderCrosser;
+            _transform = transform;
+            _transform.position = position;
             _onDestroy ??= despawnAction;
             _onDamage ??= spawnAction;
             _health = health;
@@ -40,21 +46,21 @@ namespace Game.Enemies.Asteroids
 
         private void UpdateAsteroid(int health)
         {
-            transform.localScale = Vector2.one * (health * .5f);
-            transform.GetChild(0).eulerAngles = new Vector3(0, 0, Random.Range(-180, 180));
+            _transform.localScale = Vector2.one * (health * .5f);
+            _transform.GetChild(0).eulerAngles = new Vector3(0, 0, Random.Range(-180, 180));
             _speed = (5 - health) * 0.5f;
         }
 
         private void AddScore(int value)
         {
-            var price = value switch
+            var type = value switch
             {
-                1 => 100,
-                2 => 50,
-                3 => 20,
-                _ => 0
+                1 => ETypeEnemy.SmallAsteroid,
+                2 => ETypeEnemy.MediumAsteroid,
+                3 => ETypeEnemy.LargeAsteroid,
+                _ => throw new ArgumentOutOfRangeException()
             };
-            _scoreSystem.AddScore(price);
+            _scoreSystem.AddScore(type);
         }
 
         public void GetDamage()
@@ -63,8 +69,7 @@ namespace Game.Enemies.Asteroids
             _health -= 1;
             if (_health > 0)
             {
-                _onDamage.Invoke(this, _health);
-                transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + 45);
+                _onDamage.Invoke(_transform, _health);
                 UpdateAsteroid(_health);
             }
             else
@@ -78,11 +83,16 @@ namespace Game.Enemies.Asteroids
             _onDestroy.Invoke(this);
         }
 
-        public void Update()
+        private void Update()
         {
-            transform.Translate(Vector2.up * _speed * Time.deltaTime);
+            _transform.Translate(Vector2.up * (_speed * Time.deltaTime));
 
-            transform.position = _borderCrosser.BoundariesCheck(transform.position);
+            _transform.position = _borderCrosser.BoundariesCheck(_transform.position);
+        }
+
+        private void Start()
+        {
+            _transform = transform;
         }
     }
 }

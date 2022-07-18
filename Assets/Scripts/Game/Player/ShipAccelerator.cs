@@ -1,31 +1,41 @@
+using Game.BoundariesCrosser.Interfaces;
+using Game.Settings;
 using UnityEngine;
-using System;
 
 namespace Game.Player
 {
-    [Serializable]
     public class ShipAccelerator
     {
-        [SerializeField] [Range(0, 1)] private float frictionValue;
-        [SerializeField] private float thrustSpeed;
-        [SerializeField] private Transform ship;
-        
-        private float _speed;
-        private Vector2 _direction;
+        public ShipAccelerator(SerializableGameSettings gameSettings, IBorderCrosser borderCrosser, Transform player)
+        {
+            _ship = player;
+            _maxSpeed = gameSettings.ShipMaxSpeed;
+            _deceleration = gameSettings.ShipDeceleration;
+            _acceleration = gameSettings.ShipAcceleration;
+            _borderCrosser = borderCrosser;
+        }
+
+        private readonly float _deceleration;
+        private readonly float _acceleration;
+        private readonly float _maxSpeed ;
+        private readonly Transform _ship;
+        private readonly IBorderCrosser _borderCrosser;
+
+        private Vector2 _force;
 
         public void Accelerate(float vertical)
         {
             if (vertical > 0)
             {
-                _speed = thrustSpeed * Time.deltaTime;
-                _direction = ship.up;
+                _force = Vector2.ClampMagnitude(_ship.up * (_acceleration * Time.deltaTime) + (Vector3)_force, _maxSpeed);
             }
             else
             {
-                _speed *= frictionValue;
+                _force = Vector2.MoveTowards(_force, Vector2.zero, Time.deltaTime * _deceleration);
             }
 
-            ship.transform.Translate(_direction * _speed, Space.World);
+            _ship.transform.position += (Vector3)_force * Time.deltaTime;
+            _ship.position = _borderCrosser.BoundariesCheck(_ship.position);
         }
     }
 }

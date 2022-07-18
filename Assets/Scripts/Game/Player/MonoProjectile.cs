@@ -1,5 +1,7 @@
-﻿using Game.Player.Interfaces;
+﻿using Game.BoundariesCrosser.Interfaces;
+using Game.Player.Interfaces;
 using UnityEngine;
+using Zenject;
 using System;
 
 namespace Game.Player
@@ -8,13 +10,22 @@ namespace Game.Player
     {
         [SerializeField] private SpriteRenderer sprite;
         
-        private Transform _owner;
         private bool _isHit;
         private float _speed;
+        private float _distance;
+        private float _passedWay;
         private Vector3 _position;
-        private Vector3[] _boundaries;
         private Quaternion _rotation;
+        private Transform _owner;
+        private IBorderCrosser _borderCrosser;
         private Action<MonoProjectile> _onCollision;
+
+        [Inject]
+        private void Construct(IBorderCrosser borderCrosser)
+        {
+            _borderCrosser = borderCrosser;
+            _distance = Vector2.Distance(borderCrosser.Boundaries[0] ,borderCrosser.Boundaries[2]);
+        }
 
         public void Initialize
         (
@@ -23,10 +34,10 @@ namespace Game.Player
             Transform owner,
             Vector3 position,
             Quaternion rotation,
-            Action<MonoProjectile> action,
-            Vector3[] corners
+            Action<MonoProjectile> action
         )
         {
+            _passedWay = 0;
             sprite.color = color;
             _isHit = false;
             _speed = speed;
@@ -34,25 +45,26 @@ namespace Game.Player
             transform.position = position;
             transform.rotation = rotation;
             _onCollision ??= action;
-            _boundaries = corners;
         }
 
         private void Update()
         {
             transform.Translate(Vector2.up * (_speed * Time.deltaTime));
 
+            _passedWay += _speed * Time.deltaTime;
+
+            if (_passedWay > _distance)
+            {
+                _onCollision.Invoke(this);
+                return;
+            }
+
             CheckBoundries();
         }
 
         private void CheckBoundries()
         {
-            var position = transform.position;
-
-            if (position.x < _boundaries[0].x || position.x > _boundaries[2].x ||
-                position.y < _boundaries[0].y || position.y > _boundaries[1].y)
-            {
-                _onCollision.Invoke(this);
-            }
+            transform.position = _borderCrosser.BoundariesCheck(transform.position);
         }
 
         private void OnTriggerEnter2D(Collider2D col)

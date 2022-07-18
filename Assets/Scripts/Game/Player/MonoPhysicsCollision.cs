@@ -1,7 +1,7 @@
-using UnityEngine;
-using System;
 using Game.Enemies.Interfaces;
 using Game.Player.Interfaces;
+using UnityEngine;
+using System;
 
 namespace Game.Player
 {

@@ -1,18 +1,16 @@
-﻿using Game.Enemies.Interfaces;
-using Game.Player.Interfaces;
+﻿using Game.BoundariesCrosser.Interfaces;
+using Game.Enemies.Interfaces;
 using UnityEngine;
 using Zenject;
 using System;
-using Game.BoundariesCrosser.Interfaces;
-using Game.Settings;
-using Random = UnityEngine.Random;
 
 namespace Game.Enemies.UFO
 {
-    public class MonoUFO : MonoBehaviour, IEnemy
+    public class MonoUfo : MonoBehaviour, IEnemy
     {
         private event Action<GameObject> OnDamage = _ => { };
         private IBorderCrosser _boundaries;
+        private Transform _transform;
         private int _direction;
 
         [Inject]
@@ -31,7 +29,8 @@ namespace Game.Enemies.UFO
             Action<GameObject> callback
         )
         {
-            transform.position = spawnPosition;
+            _transform = transform;
+            _transform.position = spawnPosition;
             _direction = direction;
             OnDamage += callback;
         }
@@ -40,13 +39,13 @@ namespace Game.Enemies.UFO
         {
             transform.Translate(Vector2.right * _direction * 2 * Time.deltaTime);
 
-            transform.position = _boundaries.BoundariesCheck(transform.position);
+            _transform.position = _boundaries.BoundariesCheck(_transform.position);
         }
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (!col.TryGetComponent(out IDamagable damagable)) return;
-            damagable.GetDamage();
+            if (!col.TryGetComponent(out IEnemy enemy)) return;
+            enemy.GetDamage();
             OnDamage.Invoke(gameObject);
         }
 

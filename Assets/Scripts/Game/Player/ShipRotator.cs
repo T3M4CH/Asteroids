@@ -1,23 +1,24 @@
-using System;
+using Game.Settings;
 using UnityEngine;
 
 namespace Game.Player
 {
-    [Serializable]
     public class ShipRotator
     {
-        [SerializeField] private Transform ship;
+        public ShipRotator(SerializableGameSettings gameSettings, Transform player)
+        {
+            AngleVelocity = gameSettings.ShipAngleVelocity;
+            _ship = player;
+        }
+
+        private readonly Transform _ship;
+        
         public void Rotate(float direction)
         {
             direction = Mathf.Clamp(direction, -AngleVelocity, AngleVelocity);
-            ship.Rotate(Vector3.forward * direction);
+            _ship.Rotate(Vector3.forward * (direction * Mathf.Rad2Deg * Time.deltaTime));
         }
 
-        [field: SerializeField]
-        public float AngleVelocity
-        {
-            get;
-            private set;
-        }
+        public float AngleVelocity { get; private set; }
     }
 }

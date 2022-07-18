@@ -5,7 +5,7 @@ namespace Game.Settings
 {
     public class InputSettings : IInputSettings
     {
-        public InputScheme InputScheme
+        public EInputScheme EInputScheme
         {
             get;
             set;

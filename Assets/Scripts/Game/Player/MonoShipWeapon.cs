@@ -1,25 +1,26 @@
-using System;
-using System.Linq;
-using Game.Constants;
-using Game.General;
-using Game.Settings.Enums;
 using Game.Settings.Interfaces;
+using Game.Settings.Enums;
+using Game.Constants;
+using Game.Settings;
+using Game.General;
+using System.Linq;
 using UnityEngine;
 using Zenject;
+using System;
 
 namespace Game.Player
 {
     public class MonoShipWeapon : MonoWeapon
     {
-        private readonly float[] _bulletCount = new float[3];
-
         private bool _fire;
+        private float[] _bulletCount;
         private IInputSettings _inputSettings;
 
         [Inject]
-        private void Construct(IInputSettings inputSettings)
+        private void Construct(IInputSettings inputSettings, SerializableGameSettings gameSettings)
         {
             _inputSettings = inputSettings;
+            _bulletCount = new float[gameSettings.BulletsPerSecond];
         }
 
         public override void Fire()
@@ -30,7 +31,7 @@ namespace Game.Player
             var position = transform.position + transform.up / 2;
             var projectile = ProjectilePool.Spawn();
             projectile.gameObject.SetActive(true);
-            projectile.Initialize(4, Color.green, transform, position, rot, Despawn, Corners);
+            projectile.Initialize(4, Color.green, transform, position, rot, Despawn);
 
             var audio = AudioPool.Spawn();
             audio.PlayOneShot(AudioSettings.AudioStorage[AudioConstants.Fire]);
@@ -59,16 +60,16 @@ namespace Game.Player
             }
 
             if (!_bulletCount.Any(x => x <= 0)) return;
-            switch (_inputSettings.InputScheme)
+            switch (_inputSettings.EInputScheme)
             {
-                case InputScheme.Keyboard:
+                case EInputScheme.Keyboard:
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
                         Fire();
                     }
 
                     break;
-                case InputScheme.KeyboardMouse:
+                case EInputScheme.KeyboardMouse:
                     if (Input.GetMouseButtonDown(0))
                     {
                         Fire();

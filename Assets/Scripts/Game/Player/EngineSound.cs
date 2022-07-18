@@ -1,18 +1,21 @@
+using Game.Constants;
+using Game.Settings;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Player
 {
     public class EngineSound
     {
-        public EngineSound(AudioSource audioSource, AudioClip clip)
+        public EngineSound(MemoryPool<AudioSource> audioPool, SerializableAudioSettings audioSettings)
         {
-            _audioSource = audioSource;
-            _audioSource.clip = clip;
+            _audioSource = audioPool.Spawn();
+            _audioSource.clip = audioSettings.AudioStorage[AudioConstants.Thrust];
         }
 
         private readonly AudioSource _audioSource;
 
-        public void Accelerate(float vertical)
+        public void PlaySound(float vertical)
         {
             if (vertical > 0) _audioSource.Play();
             else _audioSource.Stop();

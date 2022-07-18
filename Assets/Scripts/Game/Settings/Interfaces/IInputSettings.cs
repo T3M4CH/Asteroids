@@ -4,7 +4,7 @@ namespace Game.Settings.Interfaces
 {
     public interface IInputSettings
     {
-        InputScheme InputScheme
+        EInputScheme EInputScheme
         {
             get;
             set;
