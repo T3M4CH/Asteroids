@@ -679,22 +679,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Game/Player
+    - Assets/Scripts/Game
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/Game/Player
+  - Assets/Scripts/Game
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Games\MegameTest\Asteroids
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 147}
-    m_SelectedIDs: ec610000
-    m_LastClickedID: 25068
-    m_ExpandedIDs: 00000000ba610000bc610000be610000c0610000c2610000c4610000c6610000c861000000ca9a3b
+    scrollPos: {x: 0, y: 131}
+    m_SelectedIDs: ba610000
+    m_LastClickedID: 25018
+    m_ExpandedIDs: 00000000b4610000b6610000b8610000ba610000bc610000be610000c0610000c261000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -722,7 +722,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000ba610000bc610000be610000c0610000c2610000c4610000c6610000c8610000
+    m_ExpandedIDs: 00000000b4610000b6610000b8610000ba610000bc610000be610000c0610000c2610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
