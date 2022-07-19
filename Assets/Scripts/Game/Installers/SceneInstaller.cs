@@ -13,7 +13,6 @@ namespace Game.Installers
 {
     public class SceneInstaller : MonoInstaller
     {
-        [SerializeField] private int fpsRate;
         [SerializeField] private Transform player;
         [SerializeField] private HealthPanel healthPanel;
         [SerializeField] private GameObject monoUfoWeapon;
@@ -45,12 +44,6 @@ namespace Game.Installers
                 .BindInterfacesTo<BorderCrosser>()
                 .AsSingle()
                 .WithArguments(boundariesSettings)
-                .NonLazy();
-
-            Container
-                .Bind<SceneSettings>()
-                .AsSingle()
-                .WithArguments(fpsRate)
                 .NonLazy();
 
             Container
