@@ -1,9 +1,9 @@
+using System.Collections.Generic;
 using Game.Enemies.Enums;
 using Game.UI.Interfaces;
+using Game.Settings;
 using Game.Utils;
 using System;
-using System.Collections.Generic;
-using Game.Settings;
 
 namespace Game.UI
 {

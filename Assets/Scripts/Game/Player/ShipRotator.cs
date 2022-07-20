@@ -10,15 +10,15 @@ namespace Game.Player
             AngleVelocity = gameSettings.ShipAngleVelocity;
             _ship = player;
         }
-
-        private readonly Transform _ship;
         
+        public readonly float AngleVelocity;
+        private readonly Transform _ship;
+
         public void Rotate(float direction)
         {
             direction = Mathf.Clamp(direction, -AngleVelocity, AngleVelocity);
             _ship.Rotate(Vector3.forward * (direction * Mathf.Rad2Deg * Time.deltaTime));
         }
 
-        public float AngleVelocity { get; private set; }
     }
 }

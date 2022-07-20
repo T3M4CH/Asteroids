@@ -1,11 +1,11 @@
-using System;
 using Game.BoundariesCrosser.Interfaces;
-using Game.Enemies.Enums;
-using Game.Enemies.Interfaces;
-using UnityEngine;
-using Game.UI.Interfaces;
-using Zenject;
 using Random = UnityEngine.Random;
+using Game.Enemies.Interfaces;
+using Game.UI.Interfaces;
+using Game.Enemies.Enums;
+using UnityEngine;
+using Zenject;
+using System;
 
 namespace Game.Enemies.Asteroids
 {

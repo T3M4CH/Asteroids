@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using Game.Enemies.Enums;
-using Game.Utils;
 using UnityEngine;
+using Game.Utils;
+using System;
 
 namespace Game.Settings
 {
