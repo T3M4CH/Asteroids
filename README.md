@@ -1,4 +1,4 @@
-<b> Atari Asteroids 1978 replica </b> 
+<b> Atari Asteroids 1979replica </b> 
 
 <details>
     <summary>Results</summary>
