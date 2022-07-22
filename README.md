@@ -1,4 +1,4 @@
-<b> My test to Megame gamedev company [1/2] </b> 
+<b> Atari Asteroids 1979 replica </b> 
 
 <details>
     <summary>Results</summary>
