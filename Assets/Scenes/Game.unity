@@ -2503,7 +2503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8529074b4e643640bfbca71727fc53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsRate: 400
   player: {fileID: 327450410}
   healthPanel:
     physicsCollision: {fileID: 327450415}
